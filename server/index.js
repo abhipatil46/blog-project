@@ -2,6 +2,7 @@ import express, { request, response } from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 import UserRoute from './routes/user.route.js';
+import AuthRoute from './routes/auth.route.js';
 
 dotenv.config();
 
@@ -13,9 +14,22 @@ mongoose.connect(process.env.MONGO).then(()=>{
 
 const app = express();
 
-app.listen(3000,()=>{
-    console.log("server is running on port 3000!!!");
+app.use(express.json())
+
+app.listen(7272,()=>{
+    console.log("server is running on port 7272!!!");
 })
 
 app.use('/api/user',UserRoute); 
+app.use('/api/auth',AuthRoute); 
+
+app.use((err,req,res,next)=>{
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Internal server error';
+    res.status(statusCode).json({
+        success: false,
+        statusCode,
+        message
+    });
+});
 

@@ -1,0 +1,7 @@
+.logo{
+    background: linear-gradient(to top, red, yellow);
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    padding: 5px;
+}
