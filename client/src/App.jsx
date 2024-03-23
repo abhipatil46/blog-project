@@ -1,11 +1,15 @@
 import './App.css';
-import Navbar from './components/navabr/Navbar';
+
 import {Route, Routes} from 'react-router'
+import SignUp from './components/signUp/SignUp';
 
 function App() {
   return (
   <>
-    <Navbar></Navbar>
+  <Routes>
+    <Route path='/signup' element=<SignUp></SignUp>></Route>
+  </Routes>
+    {/* <SignUp></SignUp> */}
   </>
   );
 }
