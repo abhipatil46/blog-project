@@ -1,0 +1,24 @@
+.main{
+    margin-top: 100px;
+}
+.logo{
+    background: rgb(107,132,166);
+    background: linear-gradient(90deg, rgba(107,132,166,1) 0%, rgba(184,60,160,1) 83%, rgba(255,0,224,1) 100%);
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    padding: 5px;
+}
+.form-label{
+    font-weight: 600 !important;
+}
+.signInBtn{
+    border: none;
+    height: 40px;
+    border-radius: 10px;
+    background: rgb(61,91,131);
+    background: linear-gradient(90deg, rgba(61,91,131,1) 0%, rgba(184,60,160,1) 83%, rgba(255,0,224,1) 100%);    border-radius: 10px;
+    color: white;
+    text-align: center;
+    font-weight: 500;
+}
