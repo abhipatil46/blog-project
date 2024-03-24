@@ -43,7 +43,6 @@ function SignUp() {
 
     return (
         <>
-            <Navbar></Navbar>
             <div className='container-fluid row mt-lg-5'>
                 <div className="col-2"></div>
                 <div className='d-flex align-items-center justify-content-center col-4'>
