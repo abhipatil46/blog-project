@@ -1,42 +1,42 @@
 import React from 'react'
-import Navbar from '../navabr/Navbar'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import axios from "axios";
 import './SignIn.css'
+import {useDispatch, useSelector} from 'react-redux'
+import {signInStart, signInSuccess, signInFailuer} from '../../redux/user/userSlice'
+import { UseSelector } from 'react-redux';
 
 function SignIn() {
 
-  const [formData, setFormDate] = useState({});
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [loading, setloading] = useState(false);
+  const [formData,setFormData] = useState({});
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const {loading,error: errorMessage} = useSelector(state=> state.user)
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
-      setErrorMessage('Please fillout all the details');
-      return
+      return dispatch(signInFailuer('Please fillout all the details'));
+
     }
     try {
-      setErrorMessage(null);
+      dispatch(signInStart());
       axios
         .post('http://localhost:7272/api/auth/signin', formData)
         .then((response) => {
-          setloading(false);
-          if (response.status == 200) {
+          if (response.status === 200) {
+            dispatch(signInSuccess(response.data))
             navigate('/')
           }
         }).catch(err => {
-          setErrorMessage(err.response.data.message)
+          dispatch(signInFailuer(err.response.data.message))
         });
     } catch (error) {
-      setloading(false);
-      setErrorMessage(error.message);
+      dispatch(signInFailuer(error.message))
     }
   }
   const onChangeHandler = (e) => {
-    setFormDate({ ...formData, [e.target.id]: e.target.value.trim() });
+    setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   }
 
   return (

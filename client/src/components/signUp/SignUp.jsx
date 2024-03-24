@@ -24,7 +24,7 @@ function SignUp() {
                 .then((response) => {
                     console.log(response);
                     setloading(false);
-                    if(response.status == 200){
+                    if(response.status === 200){
                         navigate('/signin')
                     }
                 }).catch(err => {
