@@ -1,7 +1,8 @@
 import React from 'react'
 import Navbar from '../navabr/Navbar'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react';
+import axios from "axios";
 import './SignIn.css'
 
 function SignIn() {
@@ -9,11 +10,31 @@ function SignIn() {
   const [formData, setFormDate] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setloading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-
+    e.preventDefault();
+    if (!formData.email || !formData.password) {
+      setErrorMessage('Please fillout all the details');
+      return
+    }
+    try {
+      setErrorMessage(null);
+      axios
+        .post('http://localhost:7272/api/auth/signin', formData)
+        .then((response) => {
+          setloading(false);
+          if (response.status == 200) {
+            navigate('/')
+          }
+        }).catch(err => {
+          setErrorMessage(err.response.data.message)
+        });
+    } catch (error) {
+      setloading(false);
+      setErrorMessage(error.message);
+    }
   }
-
   const onChangeHandler = (e) => {
     setFormDate({ ...formData, [e.target.id]: e.target.value.trim() });
   }
@@ -36,7 +57,7 @@ function SignIn() {
             </div>
             <div className="mb-3">
               <label htmlFor="password" className="form-label">Your Password</label>
-              <input type="password" placeholder='password' className="form-control" id="password" required onChange={onChangeHandler} />
+              <input type="password" placeholder='********' className="form-control" id="password" required onChange={onChangeHandler} />
             </div>
             <button disabled={loading} type="submit" className="signInBtn w-100 mb-2">
               {
@@ -51,6 +72,10 @@ function SignIn() {
               }
             </button>
           </form>
+          <div className='mt-2'>
+            <span>Dont have an account? </span>
+            <Link to='/signup'>Sign Up</Link>
+          </div>
           {
             errorMessage && (
               <div className="alert alert-danger" role="alert">

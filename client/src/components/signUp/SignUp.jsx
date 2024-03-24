@@ -1,6 +1,5 @@
 import React from 'react'
 import './SignUp.css'
-import Navbar from '../navabr/Navbar'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import axios from "axios";
