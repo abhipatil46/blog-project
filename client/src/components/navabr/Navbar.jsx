@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
 import './Navbar.css'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 function Navbar() {
+
+    const dispatch = useDispatch();
     const { currentUser } = useSelector(state => state.user);
     return (
         <div>
