@@ -3,6 +3,7 @@ import './SignUp.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import axios from "axios";
+import OAuth from '../oAuth/OAuth';
 
 function SignUp() {
 
@@ -24,7 +25,7 @@ function SignUp() {
                 .then((response) => {
                     console.log(response);
                     setloading(false);
-                    if(response.status === 200){
+                    if (response.status === 200) {
                         navigate('/signin')
                     }
                 }).catch(err => {
@@ -68,18 +69,16 @@ function SignUp() {
                             {
                                 loading ? (
                                     <div>
-                                    <span className="spinner-border spinner-border-sm" aria-hidden="true"> </span>
-                                    <span role="status">Loading...</span>
+                                        <span className="spinner-border spinner-border-sm" aria-hidden="true"> </span>
+                                        <span role="status">Loading...</span>
                                     </div>
                                 ) : (
                                     'Sign Up'
-                                    )
+                                )
                             }
                         </button>
                     </form>
-                    <div className='continueBtn-border-wrap'>
-                        <button type="button" className="continueBtn w-100">Continue With Google</button>
-                    </div>
+                    <OAuth/>
                     <div className='mt-2'>
                         <span>Have an account? </span>
                         <Link to='/signin'>Sign In</Link>

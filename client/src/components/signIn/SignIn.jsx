@@ -3,16 +3,16 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import axios from "axios";
 import './SignIn.css'
-import {useDispatch, useSelector} from 'react-redux'
-import {signInStart, signInSuccess, signInFailuer} from '../../redux/user/userSlice'
-import { UseSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
+import { signInStart, signInSuccess, signInFailuer } from '../../redux/user/userSlice'
+import OAuth from '../oAuth/OAuth';
 
 function SignIn() {
 
-  const [formData,setFormData] = useState({});
+  const [formData, setFormData] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {loading,error: errorMessage} = useSelector(state=> state.user)
+  const { loading, error: errorMessage } = useSelector(state => state.user)
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
@@ -71,6 +71,7 @@ function SignIn() {
                 )
               }
             </button>
+            <OAuth/>
           </form>
           <div className='mt-2'>
             <span>Dont have an account? </span>
